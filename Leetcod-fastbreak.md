@@ -167,6 +167,127 @@
     >
     > Notes: 递归的参数是index，每个对应的index都要进行`[0, n-1]`的遍历
 
-19. 删除链表的倒数第 N 个结点
-20. 有效的括号
+17. 删除链表的倒数第 N 个结点
+
+18. 有效的括号
+
 21. 合并两个有序链表
+
+25. :star::star::star:K个一组翻转链表
+
+142. 环形链表 II
+
+     <img src="https://gblobscdn.gitbook.com/assets%2F-MRP-_mTHVixnnXPCTr3%2F-Mf6gTon76CdutXuS6wv%2F-MfBqsyg_7O_lNU8kAh4%2Fimage.png?alt=media&amp;token=82754ce5-5e07-4bd8-8bf8-35ba88e43890" style="zoom:67%;" />
+
+146. :star::star::star:LRU
+
+     > 设计1：双向链表中每一个entry是key-value的pair，目的是删除LRU元素时能直接访问到key，实现O(1)时间复杂度的删除
+     >
+     > - 哈希表用于查询
+     > - 双向链表用于更新元素的优先级
+
+![](https://gblobscdn.gitbook.com/assets%2F-MRP-_mTHVixnnXPCTr3%2F-Mf6gTon76CdutXuS6wv%2F-MfCIjMcztR2kp415FxC%2Fimage.png?alt=media&token=e4edb16f-cdf7-4895-898d-68107936366b)
+
+39. 组合总和
+
+    > DFS
+
+70. 爬楼梯
+
+    > 法1：递归（TLE）
+    >
+    > 法2：DP
+
+215. :star::star::star:数组中第K大的元素
+
+     > 法1：快速排序
+     >
+     > - 快排分割：
+     >
+     >   ```c++
+     >   int partition(vector<int>& nums, int start, int end) {
+     >           int i = start, j = end;
+     >           int pivot = start;
+     >           while (i < j) {
+     >               while (i < j && nums[j] <= nums[pivot]) {
+     >                   --j;
+     >               }
+     >               while (i < j && nums[i] >= nums[pivot]) {
+     >                   ++i;
+     >               }
+     >               if (i >= j) break;
+     >               swap(nums[i], nums[j]);
+     >           }
+     >           swap(nums[j], nums[pivot]);
+     >           return j;
+     >       }
+     >   ```
+     >
+     > - 随机打乱：
+     >
+     >   ```c++
+     >   inline int randomPartition(vector<int>& a, int l, int r) {
+     >           int i = rand() % (r - l + 1) + l;
+     >           swap(a[i], a[r]);
+     >           return partition(a, l, r);
+     >       }
+     >   ```
+     >
+     > 法2：堆
+     >
+     > - C++ API：建立一个小根堆（大小为k），初始化为前k个元素。从k+1个元素开始，如果当前元素小于堆顶元素，则用当前元素替换堆顶元素。**最后得到的堆堆顶即为第k大的元素**
+     >
+     >   Notes：C++中小根堆建立方法
+     >
+     >   ```std::priority_queue<int, std::vector<int>, std::greater<int>> q;```
+     >
+     > - 自建堆
+     >
+     >   Notes: 堆的下沉操作（**此操作是建立在除了当前根节点以外，其余均满足堆的条件**）
+     >
+     >   - 迭代法
+     >
+     >   ```c++
+     >   void sink(vector<int> &nums, int start, int length) {
+     >           int tmp = nums[start];
+     >           for (int i = 2*start+1; i < length; i = i*2+1) {
+     >               if (i < length-1 && nums[i+1] > nums[i]) {
+     >                   ++i;
+     >               }
+     >               if (nums[i] > tmp) {
+     >                   nums[start] = nums[i];
+     >                   start = i; 
+     >               }
+     >               else {
+     >                   break;
+     >               }
+     >           }
+     >           nums[start] = tmp;
+     >       }
+     >   ```
+     >
+     >   - 递归
+
+236. :star::star::star:二叉树的最近公共祖先
+
+     ![](https://assets.leetcode.com/uploads/2018/12/14/binarytree.png)
+
+     > 法1：分别存储`root`到`p`和`q`的路径，找出他们的分叉点
+     >
+     > 法2：存储树中每个节点的父节点，然后从`p`往前遍历，用`set`记录遍历过的节点，最后从`q`往前遍历，遇到访问过的节点则返回
+     >
+     > 法3：递归
+     >
+     > > 前提：`p`,`q`均在树中
+     >
+     > ```c++
+     > TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+     >         if (!root) return nullptr;
+     >         if (root == p || root == q) return root;
+     >         TreeNode* left = lowestCommonAncestor(root->left, p, q);
+     >         TreeNode* right = lowestCommonAncestor(root->right, p, q);
+     >         if (!left && !right) return nullptr;
+     >         if (left && right) return root;
+     >         return left ? left : right;
+     >     }
+     > ```
