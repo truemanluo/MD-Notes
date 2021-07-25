@@ -270,8 +270,10 @@
 
 236. :star::star::star:二叉树的最近公共祖先
 
-     ![](https://assets.leetcode.com/uploads/2018/12/14/binarytree.png)
+     > youtuber:[Tushar Roy - Coding Made Simple](https://www.youtube.com/channel/UCZLJf_R2sWyUtXSKiKlyvAw)
 
+     ![](https://assets.leetcode.com/uploads/2018/12/14/binarytree.png)
+     
      > 法1：分别存储`root`到`p`和`q`的路径，找出他们的分叉点
      >
      > 法2：存储树中每个节点的父节点，然后从`p`往前遍历，用`set`记录遍历过的节点，最后从`q`往前遍历，遇到访问过的节点则返回
@@ -291,3 +293,5 @@
      >         return left ? left : right;
      >     }
      > ```
+
+43. :star::star::star:二叉搜索树的最近公共祖先
