@@ -336,7 +336,7 @@
     }
 ```
 
-【94】[二叉树的中序遍历](https://leetcode-cn.com/problems/binary-tree-inorder-traversal/)
+【94】[二叉树的中序遍历](https://leetcode-cn.com/problems/binary-tree-inorder-traversal/)（迭代）
 
 > 初始化`cur`节点，中止条件为：右子树没有节点且栈为空
 
