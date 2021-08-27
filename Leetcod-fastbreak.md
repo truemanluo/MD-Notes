@@ -188,6 +188,12 @@
 
 > 快慢指针
 
+【50】[Pow(x, n)](https://leetcode-cn.com/problems/powx-n/)
+
+>快速幂：$x->x^2->x4->x8->...->x^n$，需要考虑$n$为奇数的情况
+>
+>- 递归解法
+
 1. 环形链表 II
 
    <img src="https://gblobscdn.gitbook.com/assets%2F-MRP-_mTHVixnnXPCTr3%2F-Mf6gTon76CdutXuS6wv%2F-MfBqsyg_7O_lNU8kAh4%2Fimage.png?alt=media&amp;token=82754ce5-5e07-4bd8-8bf8-35ba88e43890" style="zoom:67%;" />

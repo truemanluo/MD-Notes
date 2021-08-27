@@ -120,3 +120,29 @@ private:
 > - [循环求余](https://leetcode-cn.com/problems/jian-sheng-zi-ii-lcof/solution/mian-shi-ti-14-ii-jian-sheng-zi-iitan-xin-er-fen-f/)
 > - 快速幂（不会）
 
+【[剑指 Offer 34. 二叉树中和为某一值的路径](https://leetcode-cn.com/problems/er-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof/)】
+
+> 法：DFS
+>
+> - 注意返回条件：如果`root == nullptr`就应该直接返回（意味着没有提前返回结果，当前结果不满足条件）
+>
+> - 先加入，再判断
+>
+>   ```c++
+>   void dfs(TreeNode* root, vector<vector<int>> &ans, int target, vector<int> &tmp) {
+>       // 终止条件
+>       if (!root) {
+>           return;
+>       }
+>       tmp.push_back(root->val);
+>       if (!root->left && !root->right && target == root->val) {
+>           ans.push_back(tmp);
+>       }
+>       dfs(root->left, ans, target-root->val, tmp);
+>       dfs(root->right, ans, target-root->val, tmp);
+>       tmp.pop_back();
+>   }
+>   ```
+>
+>   
+
