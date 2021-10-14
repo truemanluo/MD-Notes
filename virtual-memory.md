@@ -1,5 +1,3 @@
-
-
 ## 内存管理
 
 ### 地址空间
@@ -128,4 +126,14 @@
     > 父子进程间是**写时复制**
 
   - 共享库（动态链接）
+  
+- Linux中虚拟内存的组织
+
+  ![](https://i.loli.net/2021/10/14/rMvpKYWJyE9ufB1.png)
+
+  - `task_struct`：包含内核运行该进程所需要的所有信息（PC，PID，可执行文件的名字，指向用户栈的指针等），其中有个`mm`指向`mm_struct`，它描述虚拟内存的当前状态
+  - `mm_struct`：包含`pgd`（一级页表的基址）和一个指向`vm_area_struct`的`mmap`指针
+  - 每个`vm_area_struct`描述当前地址空间中的一个区域
+
+  > 用户空间调用`mmap`就是创建一个`vm_area_struct`
 

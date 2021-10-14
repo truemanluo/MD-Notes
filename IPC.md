@@ -30,6 +30,10 @@
 
 - 共享内存：
 
+  > mmap详细介绍：https://www.cnblogs.com/huxiao-tee/p/4660352.html
+  >
+  > `mmap, munmap - map or unmap files or devices into memory`
+  
   ```
   进程A													进程B
   |   	...			|						|					|
@@ -37,16 +41,44 @@
   |					|						|					|
   |					|						|					|
   ```
-
-  可以通过以下方式创建/访问一段共享内存：
-
+  
+  可以通过以下方式**创建**/访问一段共享内存：
+  
   ```
   #include <sys/ipc.h>
   #include <sys/shm.h>
   
-  int shmget(key_t key, size_t size, int shmflg);
+  int shmget(key_t key, size_t size, int shmflg); // 返回memory segment的标识符
   ```
-
   
+  共享内存被创建后还不能直接被访问，还需要将其**attach**到调用进程的地址空间中：
+  
+  ```
+  void *shmat(int shmid, const void *shmaddr, int shmflg); // 如果shmaddr为NULL，则由OS决定映射的位置，否则将映射到调用进程的shmaddr
+  ```
+  
+  不再使用共享内存后需要将进程中共享内存映射的地址与共享内存**分离**（detach）：
+  
+  ```
+  int shmdt(const void *shmaddr);
+  ```
+  
+  **同样，也可使用**`mmap`**将不同进程的地址空间映射到同一个文件中来实现共享内存**：
+  
+  ```
+  进程A													进程B
+  |   	...			|						|					|
+  |	mapping area	|-->	磁盘文件	  <-- |	  mapping area	  |
+  |					|						|					|
+  |					|						|					|
+  ```
+  
+- 信号
 
-条件变量与互斥量一起使用，允许线程以无竞争的方式等待特定的条件发生
+- 信号量
+
+- socket通信
+
+- 条件变量
+
+  条件变量与互斥量一起使用，允许线程以无竞争的方式等待特定的条件发生
