@@ -404,7 +404,7 @@ private:
                 return nullptr;
             }
             p = p->children[ch-'a'];
-        }
+        }s
         return p;
     }
     TrieNode* _root;
